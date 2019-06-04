@@ -19,6 +19,7 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "@zhaoyao91/async-sleep": "0.0.0",
     "prettier": "^1.17.1",
     "tap": "^14.2.0"
   }
