@@ -1,0 +1,25 @@
+{
+  "name": "@zhaoyao91/flush-buffer",
+  "version": "0.0.0",
+  "description": "Auto flush buffer.",
+  "main": "src/flush-buffer.js",
+  "engines": {
+    "node": ">=8"
+  },
+  "scripts": {
+    "test": "tap"
+  },
+  "keywords": [
+    "flush-buffer"
+  ],
+  "repository": "https://github.com/zhaoyao91-npm/flush-buffer",
+  "author": {
+    "name": "zhaoyao91",
+    "email": "zhaoyao91@aliyun.com"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "prettier": "^1.17.1",
+    "tap": "^14.2.0"
+  }
+}
