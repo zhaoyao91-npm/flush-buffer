@@ -3,6 +3,7 @@ const sleep = require("@zhaoyao91/async-sleep");
 
 const FlushBuffer = require("./flush-buffer");
 const { FLUSH, ERROR } = require("./events");
+const { UniqueBuffer } = require("./buffers");
 
 tap.test("flushBuffer with maxSize", t => {
   const buffer = new FlushBuffer({ maxSize: 2 });
@@ -70,4 +71,23 @@ tap.test("flushBuffer with error listener", t => {
   });
 
   buffer.push(1);
+});
+
+tap.test("flushBuffer with UniqueBuffer", t => {
+  const buffer = new FlushBuffer({ maxSize: 3, buffer: new UniqueBuffer() });
+  const events = [];
+
+  buffer.on(FLUSH, items => {
+    events.push(`items: ${items}`);
+  });
+
+  buffer.push(1);
+  buffer.push(1);
+  buffer.push(2);
+  buffer.push(2);
+  buffer.push(3);
+
+  t.strictSame(events, ["items: 1,2,3"]);
+
+  t.done()
 });

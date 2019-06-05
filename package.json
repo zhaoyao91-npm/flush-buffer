@@ -2,7 +2,7 @@
   "name": "@zhaoyao91/flush-buffer",
   "version": "0.0.0",
   "description": "Auto flush buffer.",
-  "main": "src/flush-buffer.js",
+  "main": "src/index.js",
   "engines": {
     "node": ">=8"
   },
