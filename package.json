@@ -1,6 +1,6 @@
 {
   "name": "@zhaoyao91/flush-buffer",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Auto flush buffer.",
   "main": "src/index.js",
   "engines": {
