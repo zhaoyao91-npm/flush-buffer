@@ -6,7 +6,7 @@ const { FLUSH, ERROR } = require("./events");
 const { UniqueBuffer } = require("./buffers");
 
 tap.test("flushBuffer with maxSize", t => {
-  const buffer = new FlushBuffer({ maxSize: 2 });
+  const buffer = new FlushBuffer({ flushInterval: 1000, maxSize: 2 });
   const events = [];
 
   buffer.on(FLUSH, items => {
@@ -59,7 +59,7 @@ tap.test("flushBuffer with flushInterval", async t => {
 });
 
 tap.test("flushBuffer with error listener", t => {
-  const buffer = new FlushBuffer({ maxSize: 1 });
+  const buffer = new FlushBuffer({ flushInterval: 1000, maxSize: 1 });
 
   buffer.on(FLUSH, items => {
     throw new Error(`Oops ${items}`);
@@ -74,7 +74,11 @@ tap.test("flushBuffer with error listener", t => {
 });
 
 tap.test("flushBuffer with UniqueBuffer", t => {
-  const buffer = new FlushBuffer({ maxSize: 3, buffer: new UniqueBuffer() });
+  const buffer = new FlushBuffer({
+    flushInterval: 1000,
+    maxSize: 3,
+    buffer: new UniqueBuffer()
+  });
   const events = [];
 
   buffer.on(FLUSH, items => {
@@ -89,5 +93,5 @@ tap.test("flushBuffer with UniqueBuffer", t => {
 
   t.strictSame(events, ["items: 1,2,3"]);
 
-  t.done()
+  t.done();
 });
