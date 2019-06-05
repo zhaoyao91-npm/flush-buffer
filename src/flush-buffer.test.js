@@ -2,12 +2,13 @@ const tap = require("tap");
 const sleep = require("@zhaoyao91/async-sleep");
 
 const FlushBuffer = require("./flush-buffer");
+const { FLUSH, ERROR } = require("./events");
 
 tap.test("flushBuffer with maxSize", t => {
   const buffer = new FlushBuffer({ maxSize: 2 });
   const events = [];
 
-  buffer.on(FlushBuffer.EVENT_FLUSH, items => {
+  buffer.on(FLUSH, items => {
     events.push(`items: ${items}`);
   });
 
@@ -29,7 +30,7 @@ tap.test("flushBuffer with flushInterval", async t => {
   const buffer = new FlushBuffer({ flushInterval: 100, maxSize: 2 });
   const events = [];
 
-  buffer.on(FlushBuffer.EVENT_FLUSH, items => {
+  buffer.on(FLUSH, items => {
     events.push(`items: ${items}`);
   });
 
@@ -59,11 +60,11 @@ tap.test("flushBuffer with flushInterval", async t => {
 tap.test("flushBuffer with error listener", t => {
   const buffer = new FlushBuffer({ maxSize: 1 });
 
-  buffer.on(FlushBuffer.EVENT_FLUSH, items => {
+  buffer.on(FLUSH, items => {
     throw new Error(`Oops ${items}`);
   });
 
-  buffer.on(FlushBuffer.EVENT_ERROR, error => {
+  buffer.on(ERROR, error => {
     t.match(error, { message: "Oops 1" });
     t.done();
   });

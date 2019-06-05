@@ -1,5 +1,7 @@
 const EventEmitter = require("events");
 
+const events = require("./events");
+
 class FlushBuffer extends EventEmitter {
   constructor({ flushInterval = 1000, maxSize = 1 } = {}) {
     super();
@@ -31,15 +33,12 @@ class FlushBuffer extends EventEmitter {
       const buffer = this.buffer;
       this.buffer = [];
       try {
-        this.emit(FlushBuffer.EVENT_FLUSH, buffer);
+        this.emit(events.FLUSH, buffer);
       } catch (error) {
-        this.emit(FlushBuffer.EVENT_ERROR, error);
+        this.emit(events.ERROR, error);
       }
     }
   }
 }
-
-FlushBuffer.EVENT_FLUSH = "flush";
-FlushBuffer.EVENT_ERROR = "error";
 
 module.exports = FlushBuffer;
